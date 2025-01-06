@@ -18,21 +18,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Linux Dependencies
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt update
-          sudo apt install -y ninja-build libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libasound2-dev
-
-      - name: Update vcpkg
-        run: |
-          cd ${VCPKG_INSTALLATION_ROOT}
-          git pull
+      - name: Install vcpkg
+        run: git clone https://github.com/microsoft/vcpkg.git vcpkg
 
       - name: Configure CMake
-        run: |
-          mv CMakeCIPresets.json CMakeUserPresets.json
-          cmake --preset default
+        run: cmake --preset default
+        env:
+          VCPKG_ROOT: ${{ github.workspace }}/vcpkg
 
       - name: Build
         run: cmake --build --preset ${{ matrix.config  }}
