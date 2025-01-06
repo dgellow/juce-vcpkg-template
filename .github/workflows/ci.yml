@@ -1,0 +1,47 @@
+name: Build VST3
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+        config: [debug, release]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Linux Dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt update
+          sudo apt install -y ninja-build libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libasound2-dev
+
+      - name: Update vcpkg
+        run: |
+          cd ${VCPKG_INSTALLATION_ROOT}
+          git pull
+
+      - name: Configure CMake
+        run: |
+          mv CMakeCIPresets.json CMakeUserPresets.json
+          cmake --preset default
+
+      - name: Build
+        run: cmake --build --preset ${{ matrix.config  }}
+
+      - name: Validate VST3
+        run: cmake --build build --target validate_vst3
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: JUCE-hello-world-vst3-${{ runner.os }}-${{ matrix.config }}
+          path: out/install/VST3/

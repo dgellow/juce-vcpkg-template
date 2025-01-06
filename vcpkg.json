@@ -1,0 +1,6 @@
+{
+  "dependencies": [
+    "juce",
+    "vst3sdk"
+  ]
+}
