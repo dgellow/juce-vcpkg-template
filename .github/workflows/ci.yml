@@ -47,7 +47,7 @@ jobs:
         run: cmake --build --preset ${{ matrix.config  }}
 
       - name: Validate VST3
-        run: cmake --build build --target validate_vst3
+        run: cmake --build --target validate_vst3 --preset ${{ matrix.config  }}
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
