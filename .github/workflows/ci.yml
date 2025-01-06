@@ -21,6 +21,11 @@ jobs:
       - name: Install vcpkg
         run: git clone https://github.com/microsoft/vcpkg.git vcpkg
 
+      - name: Install macOS Dependencies
+        if: runner.os == 'macOS'
+        run: |
+          brew install ninja
+
       - name: Configure CMake
         run: cmake --preset vcpkg
         env:
