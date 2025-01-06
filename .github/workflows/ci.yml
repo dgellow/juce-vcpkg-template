@@ -22,7 +22,7 @@ jobs:
         run: git clone https://github.com/microsoft/vcpkg.git vcpkg
 
       - name: Configure CMake
-        run: cmake --preset default
+        run: cmake --preset vcpkg
         env:
           VCPKG_ROOT: ${{ github.workspace }}/vcpkg
 
