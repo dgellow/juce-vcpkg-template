@@ -10,7 +10,11 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [windows-latest, macos-latest, ubuntu-latest]
+        os:
+          - windows-latest
+          # vst3sdk is currently not supported in CI on macos, see https://github.com/microsoft/vcpkg/pull/41903
+          # - macos-latest
+          - ubuntu-latest
         config: [debug, release]
 
     runs-on: ${{ matrix.os }}
