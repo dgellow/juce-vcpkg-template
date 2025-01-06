@@ -21,6 +21,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: ilammy/msvc-dev-cmd@v1
+        if: runner.os == 'Windows'
 
       - name: Install vcpkg
         run: git clone https://github.com/microsoft/vcpkg.git vcpkg
