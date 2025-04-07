@@ -27,7 +27,7 @@ Add a `CMakeUserPresets.json` file to the root of this repo:
 }
 ```
 
-> :warning: On windows be sure to run cmake from a VS-aware shell.
+> :warning: On windows be sure to run cmake from a [VS-aware shell](https://github.com/dgellow/posh/blob/master/vsdev.ps1).
 
 ```sh
 # Generate
