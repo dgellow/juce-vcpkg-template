@@ -35,8 +35,15 @@ jobs:
       - name: Install Ubuntu Dependencies
         if: runner.os == 'Linux'
         run: |
-          sudo apt update
-          sudo apt install libx11-dev libxcomposite-dev libxext-dev
+          sudo apt update && sudo apt install -y \
+                libx11-dev libxinerama-dev libxrandr-dev libxcursor-dev libfreetype6-dev libasound2-dev \
+                libxcomposite-dev libxext-dev \
+                libgl1-mesa-dev libglu1-mesa-dev \
+                ninja-build \
+                autoconf libtool \
+                unzip \
+                alsa-utils alsa-base libasound2 libasound2-dev timidity \
+                cmake build-essential
 
       - name: Configure CMake
         run: cmake --preset vcpkg
