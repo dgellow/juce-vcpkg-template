@@ -42,7 +42,7 @@ jobs:
                 ninja-build \
                 autoconf libtool \
                 unzip \
-                alsa-utils alsa-base libasound2 libasound2-dev timidity \
+                alsa-utils alsa-base libasound2-dev timidity \
                 cmake build-essential
 
       - name: Configure CMake
